@@ -1,26 +1,33 @@
 import sympy as sp
 
+#Sets up X and Y for the Sympy Syntax
 x, y = sp.symbols('x y')
 
 def y_intersection(expr):
+
     # Parsing the expresion and getting the Y when X equals 0
     expr = sp.sympify(expr)
     y_val = expr.subs(x, 0).evalf()
-    # Explaining and storing into text to return
+
+    # Explaining the procedure and returning the text
     text = f"Intersección con el Eje Y: \n F(0) = {expr} \n Y = {str(expr).replace('x','(0)')} \n Y = {round(float(y_val), 3)}\n \n"
     return text
     
 def x_intersection(expr):
+
+    #Parsing the expresion and getting all x intersections
     x = sp.symbols('x')
     expr = sp.sympify(expr)
     x_intersec = sp.solve(expr, x)
 
+    #Stores every Point in which X is intersected
     x_points = []
     for root in x_intersec:
         root_eval = root.evalf()
-        if root_eval.is_real:  # solo raíces reales
+        if root_eval.is_real:  # This avoids bugs with more complicated functions
             x_points.append(float(root_eval))
 
+    #Creates the empty text and concatenates the rest depending on the number of intersections
     text = ""
     if x_points:
         for i in x_points:
@@ -37,10 +44,10 @@ def domain(expr):
     numer, denom = sp.fraction(expr)
     text = ""
 
-    # Find all the zeroes on the denominator, which is equivalent to dividing by zero
+    # Find all the zeros on the denominator, which is equivalent to dividing by zero
     zeros = sp.solve(denom, x)
 
-    # If there are zeroes, show them
+    # If there are zeros, show them and explain the justify the process
     if zeros:
         text += f"DOMINIO: Todos los Reales excepto x = {', '.join([str(round(float(z.evalf()), 2)) for z in zeros])}\n"
         text += f"Porque {str(denom).replace("x",f"({zeros[0]})")} = 0 \n \n"

@@ -43,8 +43,8 @@ initialText = 'Para graficar una función, el formato es el siguente \n -Exponen
 ##---------- USER INTERACTION ----------##
 
 zoom = 100
-displayFunction = None
-displayPoint = None
+displayFunction = None #Stores the current function
+displayPoint = None #Stores the current X point
 
 ## -- Creating the Function for Each button/submit
 def FunctionSubmit(texto):
@@ -127,13 +127,13 @@ def ZoomOut(event):
     function_area.set_ylim(-zoom, zoom)
     plt.show()
 
-## -- Assigning each function to each button/submit
+# -- Assigning each function to each button/submit -- #
 function_input.on_submit(FunctionSubmit)
 evaluate_input.on_submit(EvaluateSubmit)
 zoomIn_button.on_clicked(ZoomIn)
 zoomOut_button.on_clicked(ZoomOut)
 
-# -- Initial Display
+# -- Initial Display -- #
 console.set_text(initialText)
 function_area.set_xlim(-zoom, zoom)
 function_area.set_ylim(-zoom, zoom)

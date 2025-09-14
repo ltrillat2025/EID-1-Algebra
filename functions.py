@@ -10,10 +10,13 @@ class function:
         # Sympy parsing
         x = sp.symbols('x')
         numerator, denominator = sp.fraction(expr)
-        # Find the zeroes
+
+        # Find the zeros
         zeros = sp.solve(denominator, x)
+
         # Filter the ones where the denominator gets to 0
         asymp = [z for z in zeros if numerator.subs(x, z) != 0]
+
         # Return True or False depending on the case
         return len(asymp) > 0
 
@@ -25,11 +28,14 @@ class function:
         self.expression = expr
         self.line = None
          
+        #If the expression is passed correctly, then plot the function
         if expr is not None:
             self.plotFunction()
 
     # -- Logic to display the function -- #
     def plotFunction(self):
+
+        # Parsing with the sympy syntax
         x = sp.symbols('x')
         expr = sp.sympify(self.expression)
 
@@ -50,7 +56,7 @@ class function:
         x_vals = [round(-self.range + i * self.step, 4) for i in range(points)]
 
         # -- GET Y VALUES -- #
-        # Evaluates each X value, and adds it to the list. Unless it's None.
+        # Evaluates F(X) with each X value, and adds it to the list. Unless it's None.
         y_vals = []
         for xv in x_vals:
             try:
@@ -73,6 +79,7 @@ class function:
             pass
 
         # -- X -- #
+        
         x_intersec = sp.solve(expr, x)
         x_points = []
         for intersec in x_intersec:
